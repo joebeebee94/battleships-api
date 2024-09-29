@@ -32,6 +32,13 @@ export class Game {
     }
 
     getState() {
-
+        return {
+            'playerNextTurn': this.turns % 2 === 0 ? EPlayerId.Player1 : EPlayerId.Player2,
+            'winner': this.getWinner(),
+            'player1Board': this.players[EPlayerId.Player1],
+            'player2Board': this.players[EPlayerId.Player2],
+            'player1LiveShipCount': this.players[EPlayerId.Player1].ships.filter(ship => !ship.isSunk()).length,
+            'player2LiveShipCount': this.players[EPlayerId.Player2].ships.filter(ship => !ship.isSunk()).length,
+        }
     }
 }
