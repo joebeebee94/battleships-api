@@ -85,10 +85,10 @@ None
 - Parameters: 
 ```
 {
-    type: Destroyer | Submarine | Cruiser | Battleship | Carrier,
-    orientation: horizontal | vertical,
-    startingXPosition: number,
-    startingYPosition: number,
+    shipType: Destroyer | Submarine | Cruiser | Battleship | Carrier,
+    shipOrientation: horizontal | vertical,
+    xStartingPosition: number,
+    yStartingPosition: number,
 }
 ```
 

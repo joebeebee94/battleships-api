@@ -1,6 +1,5 @@
 import assert from 'assert';
 import { Ship } from '../src/classes/ship'
-import { Board } from '../src/classes/board'
 import { Game } from '../src/classes/game'
 import { EPlayerId, EShipType, EShipOrientation } from '../types/classes';
 

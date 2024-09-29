@@ -4,7 +4,7 @@
   "description": "API to serve backend for Battleships minigame",
   "main": "server.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register 'test/**/*.test.ts'",
+    "test": "NODE_ENV=test mocha -r ts-node/register 'test/**/*.test.ts'",
     "dev": "nodemon server.ts"
   },
   "repository": {
@@ -20,12 +20,15 @@
   "devDependencies": {
     "@types/express": "^5.0.0",
     "@types/morgan": "^1.9.9",
+    "@types/supertest": "^6.0.2",
     "mocha": "^10.7.3",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
   "dependencies": {
     "@types/mocha": "^10.0.8",
+    "dotenv": "^16.4.5",
     "express": "^4.21.0",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.7"

@@ -37,9 +37,10 @@ export class Ship {
 
     private createOccupiedPositions(x: number, y: number, orientation: EShipOrientation, type: EShipType) {
         const size = this.getSizeFromType(type);
-        return Array.from({ length: size }, (_, i) => 
+        const result = Array.from({ length: size }, (_, i) => 
             orientation === EShipOrientation.Horizontal ? [x + i, y] : [x, y + i]
         );
+        return result;
     }
 
     isSunk(): boolean {
