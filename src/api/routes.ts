@@ -4,7 +4,7 @@ import { Board } from '../classes/board';
 import { Ship } from '../classes/ship';
 import { EShipType, EShipOrientation, EPlayerId } from "../../types/classes";
 
-
+// extend Request type to include game properties
 declare global {
     namespace Express {
         interface Request {
@@ -16,10 +16,12 @@ declare global {
     }
 }
 
+// game instances stored in object
 const games: { [key: number]: Game } = {};
 
 const router = express.Router();
 
+// middleware function to save game properties to the request
 function loadGame(req: Request, res: Response, next: NextFunction) {
     const { playerId, gameId } = req.params;
     const game = games[parseInt(gameId)]
@@ -41,13 +43,18 @@ function loadGame(req: Request, res: Response, next: NextFunction) {
     next()
 }
 
+// POST - creates a new game instance
 router.post('/start', (req: Request, res: Response) => {
+
     const gameId = Object.keys(games).length + 1;
     games[gameId] = new Game();
     res.json({ gameId });
+
 });
 
+// POST - places a ship onto a player's board for a particular game
 router.post('/:gameId/player/:playerId/placeShip', loadGame, (req: Request, res: Response) => {
+
     if (!req.game || !req.playerId || !req.playerBoard || !req.opponentBoard) {
         const message = 'Error with loadGame middleware function, not all params loaded into game'
         res.status(400).send({ shipPlaced: false, message });
@@ -61,6 +68,7 @@ router.post('/:gameId/player/:playerId/placeShip', loadGame, (req: Request, res:
     }
 
     const { shipType, shipOrientation, xStartingPosition, yStartingPosition } = req.body;
+
     if (!Object.values(EShipType).includes(shipType)) {
         res.status(400).send({ shipPlaced: false, message: `Invalid ship type ${shipType}!` });
         return;
@@ -71,6 +79,7 @@ router.post('/:gameId/player/:playerId/placeShip', loadGame, (req: Request, res:
     }
 
     const ship = new Ship(shipType, shipOrientation, xStartingPosition, yStartingPosition);
+
     if (req.playerBoard.placeShip(ship)) {
         const gameState = req.game.getState()
         res.status(200).send({ shipPlaced: true, gameState });
@@ -81,7 +90,9 @@ router.post('/:gameId/player/:playerId/placeShip', loadGame, (req: Request, res:
 
 });
 
+// POST - places a shot onto a player's board for a particular game
 router.post('/:gameId/player/:playerId/placeShot', loadGame, (req: Request, res: Response) => {
+
     if (!req.game || !req.playerId || !req.playerBoard || !req.opponentBoard) {
         const message = 'Error with loadGame middleware function, not all params loaded into game'
         res.status(400).send({ shotPlaced: false, message });
@@ -95,6 +106,7 @@ router.post('/:gameId/player/:playerId/placeShot', loadGame, (req: Request, res:
     }
 
     const nextTurn = req.game.turns % 2 === 0 ? EPlayerId.Player1 : EPlayerId.Player2;
+
     if (nextTurn !== req.playerId) {
         const message = `Please wait your turn. ${nextTurn} to take the next shot`
         res.status(400).send({ shotPlaced: false, message });
@@ -103,6 +115,7 @@ router.post('/:gameId/player/:playerId/placeShot', loadGame, (req: Request, res:
 
     const { xPosition, yPosition } = req.body;
     const result = req.opponentBoard.placeShot(xPosition, yPosition);
+
     if (!result) {
         const message = `Invalid shot position: [${xPosition}, ${yPosition}]`;
         res.status(400).send({ shotPlaced: false, message })
