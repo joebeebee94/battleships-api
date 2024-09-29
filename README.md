@@ -1,4 +1,4 @@
-# Battelship API Project
+# Battleship API Project
 
 This repository contains the code for a backend service that runs a two-player Battleship game, built with TypeScript and the Express framework.
 
