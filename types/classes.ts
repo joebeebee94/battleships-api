@@ -20,3 +20,9 @@ export enum EPlayerId {
     Player1 = 'player1',
     Player2 = 'player2'
 }
+
+export enum EPlaceShotResult {
+	Hit = 'hit',
+	Miss = 'miss',
+	Sunk = 'sunk'
+}

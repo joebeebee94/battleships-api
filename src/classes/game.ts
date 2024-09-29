@@ -14,15 +14,21 @@ export class Game {
     }
 
     incrementTurns() {
-
+        this.turns ++;
     }
 
-    getBoard() {
-
+    getBoard(playerId: EPlayerId) {
+        return this.players[playerId];
     }
 
     getWinner() {
-
+        if (this.players[EPlayerId.Player1].allShipsSunk()) {
+            return EPlayerId.Player2;
+        }
+        if (this.players[EPlayerId.Player2].allShipsSunk()) {
+            return EPlayerId.Player1;
+        }
+        return null;
     }
 
     getState() {
