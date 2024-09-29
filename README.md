@@ -91,19 +91,21 @@ npm run test
 
 ## Endpoints
 
-### /game/start
+### POST - /game/start
 #### Summary:
 - Creates new game instance in memory
 - Returns unique gameId
-- Parameters: None
-
+#### Parameters:
+```
+None
+```
 #### Example request:
 ```
 curl -X POST http://localhost:3000/game/start \
 -H 'Content-Type: application/json' \
 ```
 
-### /game/:gameId/player/:playerId/placeShip
+### POST - /game/:gameId/player/:playerId/placeShip
 #### Summary:
 - Places a ship on a particular players board for a given game
 - Returns result and updated game state
@@ -129,7 +131,7 @@ curl -X POST http://localhost:3000/game/{gameId}/player/{playerId}/placeShip \
 }'
 ```
 
-### /game/:gameId/player/:playerId/placeShot
+### POST - /game/:gameId/player/:playerId/placeShot
 - Places a shot on a particular players board for a given game
 - returns result and updated game state
 
