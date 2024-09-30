@@ -131,8 +131,8 @@ curl -X POST http://localhost:3000/game/{gameId}/player/{playerId}/placeShip \
 }'
 ```
 
-### POST - /game/:gameId/player/:playerId/placeShot
-- Places a shot on a particular players board for a given game
+### POST - /game/:gameId/player/:playerId/callShot
+- Places a shot on the opponent players board for a given game
 - returns result and updated game state
 
 #### Parameters:
@@ -144,7 +144,7 @@ curl -X POST http://localhost:3000/game/{gameId}/player/{playerId}/placeShip \
 ```
 #### Example request:
 ```
-curl -X POST http://localhost:3000/game/{gameId}/player/{playerId}/placeShot \
+curl -X POST http://localhost:3000/game/{gameId}/player/{playerId}/callShot \
 -H 'Content-Type: application/json' \
 -d '{
     "xPosition": 1,
@@ -155,7 +155,7 @@ curl -X POST http://localhost:3000/game/{gameId}/player/{playerId}/placeShot \
 ## Next Steps
 
 ### Potential Features:
-- Add validation so only 1 of each ship type can be placed per player.
+- Add validation to ensure only 1 of each ship type can be placed per player.
 - Allow custom game settings such as board size, number of ships, or number of players.
 
 ### Improvements:

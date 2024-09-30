@@ -28,7 +28,7 @@ describe('Integration - Mock Gameplay', () => {
 
         // player1 attempt shot before all ships in play
         params = { xPosition: 1, yPosition: 1 }
-        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player1}/placeShot`)
+        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player1}/callShot`)
             .send(params)
             .expect(400);
         assert.strictEqual(response.body.shotPlaced, false);
@@ -103,14 +103,14 @@ describe('Integration - Mock Gameplay', () => {
 
         // player2 attempt shot out of turn
         params = { xPosition: 1, yPosition: 1 }
-        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player2}/placeShot`)
+        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player2}/callShot`)
             .send(params)
             .expect(400);
         assert.strictEqual(response.body.shotPlaced, false);
 
         // player1 attempt shot out of bounds
         params = { xPosition: -1, yPosition: 1 }
-        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player1}/placeShot`)
+        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player1}/callShot`)
             .send(params)
             .expect(400);
         assert.strictEqual(response.body.shotPlaced, false);
@@ -124,7 +124,7 @@ describe('Integration - Mock Gameplay', () => {
             // Player 1 takes a shot
             params = { xPosition: i, yPosition: j };
             response = await request(app)
-                .post(`/game/${gameId}/player/${EPlayerId.Player1}/placeShot`)
+                .post(`/game/${gameId}/player/${EPlayerId.Player1}/callShot`)
                 .send(params);
             if (response.body.gameState?.winner === EPlayerId.Player1) {
                 winner = EPlayerId.Player1;
@@ -133,7 +133,7 @@ describe('Integration - Mock Gameplay', () => {
             // Player 2 takes a shot to opposite coordinates
             params = { xPosition: 9 - i, yPosition: 9 - j };
             response = await request(app)
-                .post(`/game/${gameId}/player/${EPlayerId.Player2}/placeShot`)
+                .post(`/game/${gameId}/player/${EPlayerId.Player2}/callShot`)
                 .send(params);
             if (response.body.gameState?.winner === EPlayerId.Player2) {
                 winner = EPlayerId.Player2;
@@ -148,7 +148,7 @@ describe('Integration - Mock Gameplay', () => {
 
     it('Should handle invalid shot attempt to position that already contains one', async () => {
         params = { xPosition: 0, yPosition: 0 }
-        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player1}/placeShot`)
+        response = await request(app).post(`/game/${gameId}/player/${EPlayerId.Player1}/callShot`)
             .send(params)
             .expect(400);
         assert.strictEqual(response.body.shotPlaced, false); 

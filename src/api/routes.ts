@@ -91,7 +91,7 @@ router.post('/:gameId/player/:playerId/placeShip', loadGame, (req: Request, res:
 });
 
 // POST - places a shot onto a player's board for a particular game
-router.post('/:gameId/player/:playerId/placeShot', loadGame, (req: Request, res: Response) => {
+router.post('/:gameId/player/:playerId/callShot', loadGame, (req: Request, res: Response) => {
 
     if (!req.game || !req.playerId || !req.playerBoard || !req.opponentBoard) {
         const message = 'Error with loadGame middleware function, not all params loaded into game'
